@@ -1,17 +1,20 @@
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios";
 
-export default function RecipeForm() {
+// RecipeForms Component
+export function RecipeForm() {
   const [ingredients, setIngredients] = useState("");
   const [cuisine, setCuisine] = useState("");
   const [dietaryPreferences, setDietaryPreferences] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
 
     try {
@@ -28,62 +31,41 @@ export default function RecipeForm() {
       }
     } catch (error) {
       setError(error.response?.data?.message || "Failed to generate recipe.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black p-6 text-white">
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.5 }}
-        className="max-w-2xl w-full p-8 bg-gray-800 rounded-xl shadow-lg flex flex-col lg:flex-row items-center"
-      >
-        <div className="lg:w-1/2 mb-6 lg:mb-0">
-        <img className="h-30 w-30 ml-17 mb-3 rounded-2xl" src="https://www.logoai.com/uploads/output/2022/02/07/a0f88591c5c5690724e3fbefe1e490e8.jpg" alt="" />
-          <h2 className="text-3xl font-bold mb-4 text-center lg:text-left">Generate a Recipe</h2>
-          <p className="text-gray-400 text-sm text-center lg:text-left">Enter ingredients, select cuisine, and choose dietary preferences to get a personalized recipe!</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
+      <div className="flex lg:h-[59vh] w-full max-w-4xl p-4 bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <div
+          className="relative rounded-2xl hidden md:block md:w-1/2"
+          style={{
+            background: `url("https://images.unsplash.com/photo-1659018966820-de07c94e0d01?q=80&w=2098&auto=format&fit=crop") center/cover no-repeat`,
+          }}
+        >
+          <div className="absolute inset-0 flex flex-col justify-end p-6">
+            <h2 className="text-black text-4xl font-bold">Get Your Recipe!</h2>
+          </div>
         </div>
-        <div className="lg:w-1/2 w-full">
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-gray-300">Ingredients</label>
-              <input
-                type="text"
-                className="w-full p-2 border rounded bg-gray-700 text-white mt-1"
-                value={ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-gray-300">Cuisine Type</label>
-              <input
-                type="text"
-                className="w-full p-2 border rounded bg-gray-700 text-white mt-1"
-                value={cuisine}
-                onChange={(e) => setCuisine(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="block text-gray-300">Dietary Preferences</label>
-              <input
-                type="text"
-                className="w-full p-2 border rounded bg-gray-700 text-white mt-1"
-                value={dietaryPreferences}
-                onChange={(e) => setDietaryPreferences(e.target.value)}
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-gray-700 to-gray-500 text-white py-2 px-4 rounded hover:shadow-lg transform transition-all hover:scale-105"
-            >
-              Generate Recipe
+
+        <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="w-full flex flex-col gap-2 md:w-1/2 p-8">
+          <h1 className="text-3xl font-bold text-white text-center mb-6">Generate Recipe</h1>
+          <p className="text-gray-400 text-center mb-4">
+            Want to see your saved recipes? <Link to="/saved-recipes" className="text-purple-400">View Saved Recipes</Link>
+          </p>
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            {error && <p className="text-red-500 text-center">{error}</p>}
+            <input type="text" placeholder="Ingredients (comma separated)" className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
+            <input type="text" placeholder="Cuisine Type" className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" value={cuisine} onChange={(e) => setCuisine(e.target.value)} />
+            <input type="text" placeholder="Dietary Preferences" className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" value={dietaryPreferences} onChange={(e) => setDietaryPreferences(e.target.value)} />
+            <button type="submit" className="w-full bg-purple-500 text-white p-3 rounded-lg mt-4 hover:bg-purple-600 transition flex items-center justify-center">
+              {loading ? <span className="animate-spin h-6 w-6 border-b-2 border-white"></span> : "Generate Recipe"}
             </button>
           </form>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 }

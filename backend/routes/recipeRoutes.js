@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const {
-  generateRecipe,
-  saveRecipe,
-  getSavedRecipes,
-  deleteRecipe
+    generateRecipe,
+    saveRecipe,
+    getSavedRecipes,
+    deleteRecipe,
+    authenticateUser
 } = require("../controllers/recipeController");
 
-// Recipe routes
-router.post("/generate", generateRecipe); // Generate recipe with AI
-router.post("/save", saveRecipe); // Save recipe to database
-router.get("/saved/:userId", getSavedRecipes); // Get all saved recipes for a user
-router.delete("/delete/:recipeId", deleteRecipe); // Delete a specific recipe
-
-// ✅ Ensure correct export
+// ✅ Routes
+router.post("/generate", generateRecipe); // AI Recipe Generation
+router.post("/save", authenticateUser, saveRecipe); // Save Recipe (Requires Auth)
+router.get("/saved", authenticateUser, getSavedRecipes); // Get User Recipes
+router.delete("/delete/:recipeId", authenticateUser, deleteRecipe); // Delete Recipe
+// ✅ Export Routes
 module.exports = router;

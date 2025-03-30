@@ -1,18 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Home from "./pages/Home";
-import RecipeForm from "./components/RecipeForm";
 import SavedRecipes from "./pages/SavedRecipes";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import RecipeDisplay from "./components/RecipeDisplay";
 import Recipe from "./pages/Recipe";
+import { RecipeForm } from "./components/RecipeForm";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if user is authenticated (e.g., token in localStorage)
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);

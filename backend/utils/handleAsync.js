@@ -5,4 +5,3 @@ const handleAsync = (fn) => {
   };
   
   module.exports = handleAsync;
-  

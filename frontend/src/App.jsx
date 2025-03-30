@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 p-5">
+      <div className="min-h-screen">
         <Routes>
           <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
           <Route path="/recipe-form" element={isAuthenticated ? <RecipeForm /> : <Navigate to="/login" />} />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 
@@ -39,7 +39,7 @@ export default function Login({ setIsAuthenticated }) {
           className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-400 to-purple-500"
         ></motion.div>
 
-        <h1 className="text-3xl font-bold text-center text-white mb-6">Sign In</h1>
+        <h1 className="text-3xl font-bold text-center text-white mb-6">Login In</h1>
         <form onSubmit={handleLogin} className="w-full space-y-6">
           <div className="relative w-full">
             <label className="block text-gray-300 mb-2">Email</label>
@@ -69,6 +69,9 @@ export default function Login({ setIsAuthenticated }) {
           >
             {loading ? <span className="animate-spin h-6 w-6 border-b-2 border-white"></span> : "Login"}
           </motion.button>
+          <p className="text-center text-gray-400">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </p>
         </form>
       </motion.div>
     </div>

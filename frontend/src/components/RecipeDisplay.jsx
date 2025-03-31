@@ -33,7 +33,7 @@ export default function RecipeDisplay() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/recipes/save",
+        "https://rococo-tanuki-50fefc.netlify.app/api/recipes/save",
         recipe,
         {
           headers: {

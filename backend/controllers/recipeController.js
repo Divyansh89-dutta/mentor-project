@@ -115,7 +115,7 @@ const deleteRecipe = async (req, res) => {
         const deletedRecipe = await Recipe.findOneAndDelete({ _id: recipeId, userId: req.userId });
 
         if (!deletedRecipe) {
-            return res.status(404).json({ message: "Recipe not found or unauthorized" });
+            return res.status(401).json({ message: "Recipe not found or unauthorized" });
         }
 
         res.status(200).json({ message: "Recipe deleted successfully" });

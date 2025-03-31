@@ -14,7 +14,7 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", { name, lastName, email, password });
+      await axios.post("https://rococo-tanuki-50fefc.netlify.app/api/auth/register", { name, lastName, email, password });
       navigate("/login"); // Redirect to login after successful signup
     } catch (error) {
       console.error("Signup failed:", error);

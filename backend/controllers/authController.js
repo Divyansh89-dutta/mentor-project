@@ -79,7 +79,7 @@ const getUserProfile = async (req, res) => {
         email: user.email,
       });
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(401).json({ message: "User not found" });
     }
   } catch (error) {
     console.error(error);

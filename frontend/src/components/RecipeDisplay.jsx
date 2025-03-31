@@ -33,7 +33,7 @@ export default function RecipeDisplay() {
 
     try {
       const response = await axios.post(
-        'https://mentor-project.onrender.com/recipes/save', 
+        'https://mentor-project.onrender.com/api/recipes/save', 
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -24,16 +24,17 @@ export default function RecipeDisplay() {
   const handleSaveRecipe = async () => {
     setLoading(true);
     const token = localStorage.getItem("token");
-
+  
     if (!token) {
       setMessage("You must be logged in to save recipes.");
       setLoading(false);
       return;
     }
-
+  
     try {
       const response = await axios.post(
-        'https://mentor-project.onrender.com/api/recipes/save', 
+        "https://mentor-project.onrender.com/api/recipes/save",
+        { recipe }, // Send the recipe data in the request body
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +49,7 @@ export default function RecipeDisplay() {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
       <motion.div

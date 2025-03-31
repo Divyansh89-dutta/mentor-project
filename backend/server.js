@@ -3,9 +3,9 @@ const dotenv = require("dotenv").config();
 const cors = require("cors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");     
-const recipeRoutes = require("./routes/recipeRoutes");  
-const errorMiddleware = require("./middleware/errorMiddleware");  
+const authRoutes = require("./routes/authRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
+const errorMiddleware = require("./middleware/errorMiddleware");
 const redis = require("./config/redis");
 
 // Initialize Express App
@@ -19,9 +19,9 @@ connectDB();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://mentor-project.vercel.app", // Allow frontend requests
-    methods: "GET, POST, PUT, DELETE",
-    credentials: true, // Allow cookies and authentication headers
+    origin: ["http://localhost:5173", "https://mentor-project.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // If you're using cookies or authentication
   })
 );
 

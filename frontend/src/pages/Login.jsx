@@ -14,7 +14,9 @@ export default function Login({ setIsAuthenticated }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("https://rococo-tanuki-50fefc.netlify.app/api/auth/login", { email, password });
+      const response = await axios.post(
+        "https://mentor-project.onrender.com/api/auth/login",
+         { email, password });
       localStorage.setItem("token", response.data.token);
       setIsAuthenticated(true);
       navigate("/");

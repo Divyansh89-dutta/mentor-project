@@ -17,7 +17,9 @@ export function RecipeForm() {
     setError(null);
 
     try {
-      const response = await axios.post("https://rococo-tanuki-50fefc.netlify.app/api/recipes/generate", {
+      const response = await axios.post(
+        "https://mentor-project.onrender.com/api/recipes/generate",
+         {
         ingredients: ingredients.split(",").map((item) => item.trim()),
         cuisine,
         dietaryPreferences,

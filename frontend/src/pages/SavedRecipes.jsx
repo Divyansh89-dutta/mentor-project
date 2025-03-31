@@ -14,7 +14,7 @@ export default function SavedRecipes() {
         if (!token) throw new Error("Authentication token not found");
 
         const response = await axios.get(
-          "http://localhost:5000/api/recipes/saved",
+          "https://mentor-project.onrender.com/api/recipes/saved",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -38,7 +38,8 @@ export default function SavedRecipes() {
       if (!token) throw new Error("No auth token found");
 
       await axios.delete(
-        `http://localhost:5000/api/recipes/delete/${recipeId}`,
+        `${process.env.REACT_APP_API_URL}api/recipes/delete/${recipeId}`,
+        // `http://localhost:5000/api/recipes/delete/${recipeId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

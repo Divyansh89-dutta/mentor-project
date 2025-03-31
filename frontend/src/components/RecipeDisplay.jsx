@@ -33,8 +33,7 @@ export default function RecipeDisplay() {
 
     try {
       const response = await axios.post(
-        "https://rococo-tanuki-50fefc.netlify.app/api/recipes/save",
-        recipe,
+        'https://mentor-project.onrender.com/recipes/save', 
         {
           headers: {
             Authorization: `Bearer ${token}`,

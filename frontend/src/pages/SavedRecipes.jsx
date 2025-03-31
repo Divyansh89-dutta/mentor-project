@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function SavedRecipes() {
   const [recipes, setRecipes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSavedRecipes = async () => {
@@ -54,12 +56,20 @@ export default function SavedRecipes() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-900 to-black p-6 text-white">
+    <div className="min-h-screen flex flex-col items-center bg-gray-900 p-6 text-white">
+      <div className="w-full max-w-6xl">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-6 text-blue-400 hover:underline flex items-center gap-2"
+        >
+          ← Back
+        </button>
+      </div>
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mb-6"
+        className="text-4xl font-extrabold mb-6 text-center"
       >
         Saved Recipes
       </motion.h1>
@@ -67,75 +77,52 @@ export default function SavedRecipes() {
       {recipes.length === 0 ? (
         <p className="text-gray-400 text-lg">No saved recipes found.</p>
       ) : (
-        <motion.ul
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-2xl bg-gray-800 p-6 rounded-xl shadow-lg space-y-6"
+          className="grid gap-6 w-full max-w-6xl"
         >
           {recipes.map((recipe) => (
-            <motion.li
+            <motion.div
               key={recipe._id}
-              className="border-b border-gray-600 pb-4 last:border-none"
-              whileHover={{ scale: 1.02 }}
+              className="bg-gray-800 rounded-xl p-6 shadow-lg "
+             
             >
-              {/* Recipe Title */}
-              <h2 className="text-xl font-semibold text-white">
-                {recipe.title}
-              </h2>
-
-              {/* Cooking Time & Servings */}
-              <p className="text-gray-400 mt-1">
-                <strong>⏳ Cooking Time:</strong> {recipe.cooking_time || "N/A"}{" "}
-                | <strong>🍽️ Servings:</strong> {recipe.serving_size || "N/A"}
-              </p>
-
-              {/* Ingredients */}
-              {recipe.ingredients && recipe.ingredients.length > 0 && (
-                <div className="mt-2">
-                  <h3 className="text-lg font-semibold text-gray-300">
-                    🥦 Ingredients:
-                  </h3>
+              <h2 className="text-2xl font-semibold text-white mb-4">{recipe.title}</h2>
+              <div className="grid grid-cols-2 gap-6">
+                {/* Ingredients on the Left */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-300 mb-2">🥦 Ingredients:</h3>
                   <ul className="list-disc list-inside text-gray-400 space-y-1">
                     {recipe.ingredients.map((ingredient, index) => (
                       <li key={index}>
-                        {ingredient.item} - {ingredient.quantity}{" "}
-                        {ingredient.unit ? ingredient.unit : ""}
+                        {ingredient.item} - {ingredient.quantity} {ingredient.unit || ""}
                       </li>
                     ))}
                   </ul>
                 </div>
-              )}
-
-              {/* Instructions */}
-              {recipe.instructions && Array.isArray(recipe.instructions) ? (
-                <div className="mt-2">
-                  <h3 className="text-lg font-semibold text-gray-300">
-                    👨‍🍳 Instructions:
-                  </h3>
+                {/* Instructions on the Right */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-300 mb-2">👨‍🍳 Instructions:</h3>
                   <ol className="list-decimal list-inside text-gray-400 space-y-2">
                     {recipe.instructions.map((instruction, index) => (
                       <li key={instruction._id || index}>
-                        <strong>Step {instruction.step}:</strong>{" "}
-                        {instruction.text}
+                        <strong>Step {instruction.step}:</strong> {instruction.text}
                       </li>
                     ))}
                   </ol>
                 </div>
-              ) : (
-                <p className="text-gray-400">No instructions available.</p>
-              )}
-
-              {/* Delete Button */}
+              </div>
               <button
                 onClick={() => handleDeleteRecipe(recipe._id)}
-                className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition transform hover:scale-105"
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 duration-300 w-full"
               >
                 Delete
               </button>
-            </motion.li>
+            </motion.div>
           ))}
-        </motion.ul>
+        </motion.div>
       )}
     </div>
   );

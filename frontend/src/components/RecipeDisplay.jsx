@@ -80,8 +80,8 @@ export default function RecipeDisplay() {
           <ul className="list-disc list-inside text-gray-400 mb-4 space-y-1">
             {recipe.ingredients?.map((ingredient, index) => (
               <li key={index}>
-                {ingredient.item} - {ingredient.quantity}{" "}
-                {ingredient.unit ? ingredient.unit : ""}
+                {ingredient.name} - {ingredient.quantity}{" "}
+                {ingredient.preparation ? `(${ingredient.preparation})` : ""}
               </li>
             ))}
           </ul>
@@ -93,7 +93,7 @@ export default function RecipeDisplay() {
           <ol className="list-decimal list-inside text-gray-400 space-y-2">
             {recipe.instructions?.map((instruction, index) => (
               <li key={index}>
-                <strong>Step {instruction.step}:</strong> {instruction.text}
+                <strong>Step {instruction.step}:</strong> {instruction.description}
               </li>
             ))}
           </ol>

@@ -17,13 +17,7 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Allow frontend requests
-    methods: "GET, POST, PUT, DELETE",
-    credentials: true, // Allow cookies and authentication headers
-  })
-);
+
 app.use(morgan("dev"));
 
 // Routes

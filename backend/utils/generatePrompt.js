@@ -10,7 +10,6 @@ const generateRecipe = async (ingredients, preferences, cuisine) => {
   try {
     const result = await model.generateContent({ contents: [{ role: "user", parts: [{ text: prompt }] }] });
 
-    // ✅ Ensure response structure is correct
     if (!result?.response?.candidates || result.response.candidates.length === 0) {
       throw new Error("Invalid response from Gemini API");
     }
@@ -21,12 +20,11 @@ const generateRecipe = async (ingredients, preferences, cuisine) => {
       throw new Error("Empty response from Gemini API");
     }
 
-    // ✅ Remove possible markdown artifacts like ```json
     const cleanedResponse = responseText.replace(/```json|```/g, "").trim();
 
     return JSON.parse(cleanedResponse);
   } catch (error) {
-    console.error("❌ Gemini API request failed:", error);
+    console.error("Gemini API request failed:", error);
     throw new Error("Gemini API request failed");
   }
 };

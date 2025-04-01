@@ -23,7 +23,7 @@ export default function SavedRecipes() {
         setRecipes(response.data.recipes || []);
       } catch (error) {
         console.error(
-          "❌ Error fetching saved recipes:",
+          "Error fetching saved recipes:",
           error.response?.data || error.message
         );
       }
@@ -38,8 +38,7 @@ export default function SavedRecipes() {
       if (!token) throw new Error("No auth token found");
 
       await axios.delete(
-        `${process.env.REACT_APP_API_URL}api/recipes/delete/${recipeId}`,
-        // `http://localhost:5000/api/recipes/delete/${recipeId}`,
+        `https://mentor-project.onrender.com/api/recipes/delete/${recipeId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -50,7 +49,7 @@ export default function SavedRecipes() {
       );
     } catch (error) {
       console.error(
-        "❌ Error deleting recipe:",
+        "Error deleting recipe:",
         error.response?.data || error.message
       );
     }
@@ -92,7 +91,6 @@ export default function SavedRecipes() {
             >
               <h2 className="text-2xl font-semibold text-white mb-4">{recipe.title}</h2>
               <div className="grid grid-cols-2 gap-6">
-                {/* Ingredients on the Left */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-300 mb-2">🥦 Ingredients:</h3>
                   <ul className="list-disc list-inside text-gray-400 space-y-1">
@@ -103,7 +101,6 @@ export default function SavedRecipes() {
                     ))}
                   </ul>
                 </div>
-                {/* Instructions on the Right */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-300 mb-2">👨‍🍳 Instructions:</h3>
                   <ol className="list-decimal list-inside text-gray-400 space-y-2">

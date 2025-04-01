@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-200 text-black p-8">
-      {/* Header Section */}
       <div className="text-center mb-8">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -21,11 +20,7 @@ export default function Home() {
           AI-DRIVEN <span className="text-gray-600">EDUCATION</span>
         </motion.h1>
       </div>
-
-      {/* Main Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        {/* Black Info Box */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -43,8 +38,6 @@ export default function Home() {
             </span>
           </div>
         </motion.div>
-
-        {/* Lime Green Box */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -75,8 +68,6 @@ export default function Home() {
             Learn More →
           </Link>
         </motion.div>
-
-        {/* Stats Box */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -90,19 +81,19 @@ export default function Home() {
             </div>
           </div>
           <div className="flex justify-center mt-12 space-x-6">
-        <Link
-          to="/recipe-form"
-          className="bg-gray-900 text-white py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform transition-all hover:scale-105 text-lg font-semibold"
-        >
-          Explore
-        </Link>
-        <Link
-          to="/saved-recipes"
-          className="bg-gray-700 text-white py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform transition-all hover:scale-105 text-lg font-semibold"
-        >
-          Saved Recipe
-        </Link>
-      </div>
+            <Link
+              to="/recipe-form"
+              className="bg-gray-900 text-white py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform transition-all hover:scale-105 text-lg font-semibold"
+            >
+              Explore
+            </Link>
+            <Link
+              to="/saved-recipes"
+              className="bg-gray-700 text-white py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transform transition-all hover:scale-105 text-lg font-semibold"
+            >
+              Saved Recipe
+            </Link>
+          </div>
         </motion.div>
       </div>
     </div>

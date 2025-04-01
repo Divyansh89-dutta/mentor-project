@@ -7,17 +7,16 @@ const cacheMiddleware = async (req, res, next) => {
     const cachedData = await redisClient.get(cacheKey);
 
     if (cachedData) {
-      console.log("✅ Cache hit!");
+      console.log("Cache hit!");
       return res.status(200).json(JSON.parse(cachedData));
     }
 
-    console.log("❌ Cache miss...");
+    console.log("Cache miss...");
     
-    // Capture the original send method
     const originalSend = res.send.bind(res);
 
     res.send = (body) => {
-      redisClient.setEx(cacheKey, 3600, JSON.stringify(body)); // Cache for 1 hour
+      redisClient.setEx(cacheKey, 3600, JSON.stringify(body)); 
       originalSend(body);
     };
 

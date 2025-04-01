@@ -2,8 +2,6 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-// @desc    Register new user
-// @route   POST /api/auth/register
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -41,8 +39,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -65,9 +61,6 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
-// @desc    Get user profile
-// @route   GET /api/auth/profile
 const getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -87,7 +80,6 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-// ✅ Ensure you properly export all functions
 module.exports = {
   registerUser,
   loginUser,

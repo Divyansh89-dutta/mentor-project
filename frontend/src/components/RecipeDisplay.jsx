@@ -34,7 +34,7 @@ export default function RecipeDisplay() {
     try {
       const response = await axios.post(
         "https://mentor-project.onrender.com/api/recipes/save",
-        { recipe }, // Send the recipe data in the request body
+        { recipe }, 
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -63,7 +63,6 @@ export default function RecipeDisplay() {
             {recipe.title || "Delicious Recipe"}
           </h2>
 
-          {/* Cooking Time & Serving Size */}
           <div className="flex justify-center gap-6 text-gray-400 text-lg mb-4">
             <p>
               <strong>⏳ Cooking Time:</strong> {recipe.cooking_time || "N/A"}
@@ -73,7 +72,6 @@ export default function RecipeDisplay() {
             </p>
           </div>
 
-          {/* Ingredients */}
           <h3 className="text-xl font-semibold text-gray-300 mb-2">
             🥦 Ingredients:
           </h3>
@@ -86,7 +84,6 @@ export default function RecipeDisplay() {
             ))}
           </ul>
 
-          {/* Instructions */}
           <h3 className="text-xl font-semibold text-gray-300 mb-2">
             👨‍🍳 Instructions:
           </h3>
@@ -97,8 +94,6 @@ export default function RecipeDisplay() {
               </li>
             ))}
           </ol>
-
-          {/* Save Recipe Button */}
           <button
             onClick={handleSaveRecipe}
             className="mt-6 w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition transform hover:scale-105 flex justify-center items-center"
@@ -109,8 +104,6 @@ export default function RecipeDisplay() {
               "Save Recipe"
             )}
           </button>
-
-          {/* Message Display */}
           {message && (
             <p
               className={`mt-3 text-center text-lg ${

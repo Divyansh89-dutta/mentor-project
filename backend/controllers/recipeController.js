@@ -2,10 +2,7 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Recipe = require("../models/Recipe");
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-// ✅ Function to generate AI prompt
 const generatePrompt = (ingredients, cuisine = "", dietaryPreferences = "") => {
     let prompt = `Create a unique recipe using the following ingredients: ${ingredients.join(", ")}.`;
     if (cuisine) prompt += ` Cuisine: ${cuisine}.`;
@@ -14,7 +11,6 @@ const generatePrompt = (ingredients, cuisine = "", dietaryPreferences = "") => {
     return prompt;
 };
 
-// ✅ Generate Recipe using Gemini AI
 const generateRecipe = async (req, res) => {
     const { ingredients, cuisine, dietaryPreferences } = req.body;
 
@@ -36,7 +32,6 @@ const generateRecipe = async (req, res) => {
         const responseText = result.response.candidates[0]?.content?.parts?.[0]?.text || "";
         if (!responseText) throw new Error("Empty response from Gemini API");
 
-        // ✅ Handle potential parsing errors
         let recipe;
         try {
             recipe = JSON.parse(responseText.replace(/```json|```/g, "").trim());
@@ -46,26 +41,23 @@ const generateRecipe = async (req, res) => {
 
         res.status(200).json(recipe);
     } catch (error) {
-        console.error("❌ Gemini API request failed:", error);
+        console.error("Gemini API request failed:", error);
         res.status(500).json({ message: "Failed to generate recipe", error: error.message });
     }
 };
-
-// ✅ Middleware: Extract `userId` from JWT
 const authenticateUser = (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) return res.status(401).json({ message: "Unauthorized" });
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = decoded.id; // Attach `userId` to `req`
+        req.userId = decoded.id; 
         next();
     } catch (error) {
         return res.status(401).json({ message: "Invalid Token" });
     }
 };
 
-// ✅ Save Recipe to MongoDB (with auto userId)
 const saveRecipe = async (req, res) => {
     try {
         const { title, ingredients, instructions, cuisine, dietaryPreferences } = req.body;
@@ -80,18 +72,17 @@ const saveRecipe = async (req, res) => {
             instructions,
             cuisine,
             dietaryPreferences,
-            userId: req.userId, // Auto-add userId
+            userId: req.userId,
         });
 
         await newRecipe.save();
         res.status(201).json({ message: "Recipe saved successfully", recipe: newRecipe });
     } catch (error) {
-        console.error("❌ Error saving recipe:", error);
+        console.error("Error saving recipe:", error);
         res.status(500).json({ message: "Failed to save recipe", error: error.message });
     }
 };
 
-// ✅ Get Saved Recipes for a User
 const getSavedRecipes = async (req, res) => {
     try {
         const recipes = await Recipe.find({ userId: req.userId });
@@ -103,7 +94,6 @@ const getSavedRecipes = async (req, res) => {
     }
 };
 
-// ✅ Delete a Recipe
 const deleteRecipe = async (req, res) => {
     try {
         const { recipeId } = req.params;
@@ -125,11 +115,10 @@ const deleteRecipe = async (req, res) => {
     }
 };
 
-// ✅ Export all functions
 module.exports = {
     generateRecipe,
     saveRecipe,
     getSavedRecipes,
     deleteRecipe,
-    authenticateUser, // ✅ Export Middleware
+    authenticateUser, 
 };

@@ -19,11 +19,12 @@ export function RecipeForm() {
     try {
       const response = await axios.post(
         "https://mentor-project.onrender.com/api/recipes/generate",
-         {
-        ingredients: ingredients.split(",").map((item) => item.trim()),
-        cuisine,
-        dietaryPreferences,
-      });
+        {
+          ingredients: ingredients.split(",").map((item) => item.trim()),
+          cuisine,
+          dietaryPreferences,
+        }
+      );
 
       if (response.data) {
         navigate("/recipes", { state: { recipe: response.data } });
@@ -65,9 +66,14 @@ export function RecipeForm() {
           transition={{ duration: 0.5 }}
           className="w-full flex flex-col gap-4 md:w-1/2 p-8"
         >
-          <h1 className="text-3xl font-bold text-white text-center">Generate Recipe</h1>
+          <h1 className="text-3xl font-bold text-white text-center">
+            Generate Recipe
+          </h1>
           <p className="text-gray-400 text-center">
-            Want to see your saved recipes? <Link to="/saved-recipes" className="text-purple-400">View Saved Recipes</Link>
+            Want to see your saved recipes?{" "}
+            <Link to="/saved-recipes" className="text-purple-400">
+              View Saved Recipes
+            </Link>
           </p>
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             {error && <p className="text-red-500 text-center">{error}</p>}

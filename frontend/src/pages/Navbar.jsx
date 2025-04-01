@@ -9,17 +9,27 @@ export default function Navbar({ isAuthenticated, handleLogout }) {
       <div className="flex space-x-6">
         {isAuthenticated ? (
           <>
-            <Link to="/" className="hover:text-blue-400">Home</Link>
-            <Link to="/recipe-form" className="hover:text-blue-400">Explore</Link>
-            <Link to="/saved-recipes" className="hover:text-blue-400">Saved</Link>
+            <Link to="/" className="hover:text-blue-400">
+              Home
+            </Link>
+            <Link to="/recipe-form" className="hover:text-blue-400">
+              Explore
+            </Link>
+            <Link to="/saved-recipes" className="hover:text-blue-400">
+              Saved
+            </Link>
             <button onClick={handleLogout} className="hover:text-red-400">
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="hover:text-green-400">Login</Link>
-            <Link to="/signup" className="hover:text-green-400">Signup</Link>
+            <Link to="/login" className="hover:text-green-400">
+              Login
+            </Link>
+            <Link to="/signup" className="hover:text-green-400">
+              Signup
+            </Link>
           </>
         )}
       </div>

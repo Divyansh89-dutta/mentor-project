@@ -18,7 +18,7 @@ export default function Signup() {
     e.preventDefault();
     try {
       await axios.post(
-       'https://mentor-project.onrender.com/api/auth/register', // Use VITE_API_URL instead of REACT_APP_API_URL
+       'https://mentor-project.onrender.com/api/auth/register',
         { name, lastName, email, password },
         { withCredentials: true }
       );
@@ -48,8 +48,6 @@ export default function Signup() {
             </h2>
           </div>
         </div>
-
-        {/* Right Side - Form */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
